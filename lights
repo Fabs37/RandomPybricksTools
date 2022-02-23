@@ -1,0 +1,63 @@
+#!/bin/bash
+G0="/sys/class/leds/led0:green:brick-status/brightness"
+R0="/sys/class/leds/led0:red:brick-status/brightness"
+G1="/sys/class/leds/led1:green:brick-status/brightness"
+R1="/sys/class/leds/led1:red:brick-status/brightness"
+
+if [ "$#" == 0 ]; then
+	echo "missing operand. Type 'lights --help' for more information."
+fi
+ 
+if [ "$1" == "-a" ]; then
+	echo $2 > $G0
+	echo $2 > $R0
+	echo $2 > $G1
+	echo $2 > $R1
+elif [ "$1" == "off" ]; then
+	lights -a 0
+elif [ "$1" == "on" ]; then
+	lights g0 255 g1 255 r0 0 r1 0
+elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+	echo "ev3dev status LED controller."
+	echo ""
+	echo "Usage: lights -a VALUE"
+    echo "   or: lights LEDNAME VALUE ..."
+	echo "   or: lights [on|off]"
+	echo ""
+	echo "1st variant sets the brightness of all 4 LEDs to VALUE (0-255)."
+	echo "2nd variant takes pairs of LEDNAMEs and VALUEs and sets the brightness of each LED to VALUE, respectively."
+	echo "3rd variant switches the green light on or all lights off."
+	echo ""
+	echo "The names of the LEDs are:"
+	echo "  G0     left green LED"
+	echo "  R0     left red LED"
+	echo "  G1     right green LED"
+	echo "  R1     right red LED"
+	echo ""
+	echo "Examples:"
+	echo "1)    lights -a 0"
+	echo "(aka) lights off                            Turns all LEDs off."
+	echo "2)    G0 255 R1 255                         Left: Green, Right: Red"
+	echo "3)    lights G0 255 G1 255 R0 50 R1 50      Some kind of yellow"
+else
+	name="None"
+	for arg in $@; do
+		if [ $name = "None" ]; then
+			case $arg in
+				"g0") ;&
+				"G0") name=$G0;;
+				"r0") ;&
+				"R0") name=$R0;;
+				"g1") ;&
+				"G1") name=$G1;;
+				"r1") ;&
+				"R1") name=$R1;;
+				*) echo "unknown LEDNAME: $arg";
+				   	break;;
+			esac
+		else
+			echo $arg > $name
+			name="None"
+		fi
+	done
+fi

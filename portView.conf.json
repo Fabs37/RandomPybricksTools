@@ -1,0 +1,19 @@
+{
+	"calibration.ev3col.reflect.enabled": true,
+	"calibration.ev3col.rgb.enabled": false,
+	"calibration.ev3col.rgb.defaultRange": 255,
+	"calibration.ev3col.rgb.defaultMode": "single",
+
+	"hideModes": {
+		"lego-ev3-color": [
+			"COL-CAL"
+		],
+		"lego-ev3-gyro": [
+			"GYRO-CAL"
+		],
+		"lego-ev3-ir": [
+			"IR-CAL",
+			"IR-S-ALT"
+		]
+	}
+}
