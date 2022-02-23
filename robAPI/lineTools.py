@@ -47,7 +47,7 @@ class LineFollower:
         * `kp`: Je größer diese Konstante ist, desto stärker lenkt der Roboter gegen, um an der Linie zu bleiben - oder über sie hinauszuschießen.
         * `setPoint [0-100]`: Der Sollwert an der Kante der Linie, die der Roboter ansteuert.
         * `side`: Wenn `True`, ist der mittlere Sensor links neben der Linie, sonst rechts davon.
-        * `term`: [ERWEITERT] Beschreibt die Abhängigkeit der Lenkung vom Fehler. Standard ist `'x'` (proportionaler Zusammenhang), es kann aber jeder Term mit der Variable `x` (= Fehler) genommen werden, z.B. `'x^3'`. Das Modul `math` kann hierbei verwendet werden.
+        * `term`: [ERWEITERT] Beschreibt die Abhängigkeit der Lenkung vom Fehler. Standard ist `'x'` (direkt proportionaler Zusammenhang), es kann aber jeder Term mit der Variable `x` (= Fehler) genommen werden, z.B. `'pow(x, 3)'`. Das Modul `math` kann hierbei verwendet werden.
         """
 
         self.speed = speed
@@ -116,7 +116,6 @@ class LineFollower:
                     self.speed += dv
                     __time.sleep(0.1)
                 self.speed = vNew
-                print("[DEBUG l. 117] accel: Ende; dv=%s, realDt = %s" % (dv, __time.time() - startTime))
     
     def changeKP(self, t: float, kpNew: float, wait=False) -> None:
         """
@@ -142,7 +141,6 @@ class LineFollower:
                     self.kp += dkp
                     __time.sleep(0.1)
                 self.kp = kpNew
-                print("[DEBUG l. 142] chKP: Ende; dv=%s, realDt = %s" % (dkp, __time.time() - startTime))
 
     def changeSetPoint(self, t: float, setPointNew: float, wait=False) -> None:
         """
@@ -168,7 +166,6 @@ class LineFollower:
                     self.setPointVal += dsp
                     __time.sleep(0.1)
                 self.setPointVal = setPointNew
-                print("[DEBUG l. 117] chSP: Ende; dsp=%s, realDt = %s" % (dsp, __time.time() - startTime))
 
     def nthTurningLeft(self, n: int, stop: bool = False, decelerationTime: int = 0, wait: bool = True) -> None:
         """
