@@ -16,7 +16,7 @@ These are the working parts of what I've been coding for ev3dev and pybricks.
 
 ### General: Calibration
 
-Calibration of color sensors is one of the main goals of this project. You can calibrate the `reflection` / `COL-REFLECT` mode of the EV3 Color Sensor and read the calibrated values via the [`CaliColorSensor` class](/robAPI/sensors.py#L114) and the [portView UI](#[portView.py](/portView.py)).
+Calibration of color sensors is one of the main goals of this project. You can calibrate the `reflection` / `COL-REFLECT` mode of the EV3 Color Sensor and read the calibrated values via the [`CaliColorSensor` class](/robAPI/sensors.py#L114) and the [portView UI](#portviewpy).
 
 ### [robAPI](/robAPI/)
 
@@ -33,7 +33,7 @@ This Python module contains two submodules:
         - one color sensor on each side in order to detect line crossings.
     - It contains
         - a [class for line following](/robAPI/lineTools.py#L11) (its methods `nthTurningLeft` and `nthTurningRight` are *not yet implemented* and will be different for each robot) and
-        - a function that [counts the lines](/robAPI/lineTools.py#L183) that pass the robot.
+        - a function that [counts the lines](/robAPI/lineTools.py#L199) that pass the robot.
 
 The API documentation is (currently) only available as docstrings and is partly in German.
 
