@@ -60,6 +60,10 @@ class BetterEv3devSensor():
 class HtNxtColorV2Sensor(BetterEv3devSensor):
     """HiTechnic NXT Color Sensor V2."""
     def __init__(self, port: __parameters.Port):
+        """
+        Arguments:
+            * `port`: Port to which the sensor is connected.
+        """
         super().__init__(port, "ht-nxt-color-v2")
     
     def color(self) -> int:
@@ -84,7 +88,7 @@ class HtNxtColorV2Sensor(BetterEv3devSensor):
         Light Magenta | 16
         White         | 17
         """
-        return super()._read("COLOR")
+        return super()._read("COLOR")[0]
     
     def rgb(self) -> tuple[int, int, int, int]:
         """Returns the red, green, blue and white components of the detected color (0-255)."""
@@ -95,7 +99,7 @@ class HtNxtColorV2Sensor(BetterEv3devSensor):
         return super()._read("NORM")
     
     def passive(self) -> tuple[int, int, int, int]:
-        """Returns the red, green, blue and white components of passively the detected color, means that the sensor's LED is switched off. (0-255)."""
+        """Returns the red, green, blue and white components of the passively detected color, means that the sensor's LED is switched off. (0-255)."""
         return super()._read("PASSIVE")
 
     def raw(self) -> tuple[int, int, int, int]:
@@ -135,7 +139,7 @@ class CaliColorSensor:
             with open("/home/robot/.caliValues.json") as f:
                 self.__values = __json.load(f)[str(self.__port)]  # Werte aus JSON-Datei holen
         except RuntimeError as e: # Wenn z.B. die JSON-Datei noch leer ist:
-            self.__values = {"reflect": [0, 1], "rgb": {c: [1, 0] for c in ["red", "green", "blue"]}}
+            self.__values = {"reflect": [1, 0], "rgb": {c: [1, 0] for c in ["red", "green", "blue"]}}
             print("Fehler beim Laden der Werte: " + str(e))
         
     
