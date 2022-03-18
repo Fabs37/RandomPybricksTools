@@ -25,7 +25,7 @@ class Sensor:
     def __init__(self, path) -> None:
         self.path = path
         self.driverName = rl(self.path+"/driver_name")[:-1]
-        self.portLetter = rl(self.path+"/address")[-2:-1]
+        self.portLetter = rl(self.path+"/address")[12:13]
         self.numValues = int(rl(self.path+"/num_values")[:-1])
         self.mode = rl(self.path+"/mode")[:-1]
         self.values = None
@@ -199,13 +199,14 @@ f12 = Font(size=12)
 f18 = Font(size=18)
 f24 = Font(size=24)
 
-defaultSettings = {'calibration.ev3col.reflect.enabled': True, 'calibration.ev3col.rgb.enabled': True, 'calibration.ev3col.rgb.defaultRange': 255, 'calibration.ev3col.rgb.defaultMode': 'single', 'hideModes': {'lego-ev3-color': ['COL-CAL'], 'lego-ev3-gyro': ['GYRO-CAL'], 'lego-ev3-ir': ['IR-CAL', 'IR-S-ALT']}}
-if os.path.isfile("/home/robot/.portView.conf.json"):
+defaultSettings = {'calibration.ev3col.reflect.enabled': True, 'calibration.ev3col.rgb.enabled': False, 'calibration.ev3col.rgb.defaultRange': 255, 'calibration.ev3col.rgb.defaultMode': 'single', 'hideModes': {'lego-ev3-color': ['COL-CAL'], 'lego-ev3-gyro': ['GYRO-CAL'], 'lego-ev3-ir': ['IR-CAL', 'IR-S-ALT']}}  
+try:
     settings = json.load(open("/home/robot/.portView.conf.json"))
-elif os.path.isfile(os.path.split(__file__)[0]+"/.portView.conf.json"):
-    settings = json.load(open(os.path.split(__file__)[0]+"/.portView.conf.json"))
-else:
-    settings = defaultSettings
+except:
+    try:
+        settings = json.load(open(__file__.rsplit("/", 1)[0]+"/.portView.conf.json"))
+    except:
+        settings = defaultSettings
 for k in defaultSettings.keys():
         if k not in settings.keys():
             settings[k] = defaultSettings[k]

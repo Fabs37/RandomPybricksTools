@@ -23,7 +23,7 @@ class BetterEv3devSensor():
         sensorFound = False
         for sens in __os.listdir("/sys/class/lego-sensor"):
             # print("checking sensor %s, drivername: %s" % (sens, __rl("/sys/class/lego-sensor/"+sens+"/driver_name")[:-1]))
-            if __num2Port[__rl("/sys/class/lego-sensor/"+sens+"/address")[-2:-1]] != port:
+            if __num2Port[__rl("/sys/class/lego-sensor/"+sens+"/address")[12:13]] != port:
                 continue
             if __rl("/sys/class/lego-sensor/"+sens+"/driver_name")[:-1] != driverName:
                 continue
