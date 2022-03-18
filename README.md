@@ -45,6 +45,10 @@ A command line program to control the single status LEDs of the brick. (It doesn
 
 See `lights --help` for more info.
 
+### [lsev3devices](/lsev3devices)
+
+A command line tool that lists the sensors and motors detected by the brick, their driver name and the port to which they are connected.
+
 ### [motorControl.py](/motorControl.py)
 
 A GUI program that controls the motors connected to the brick via its buttons.

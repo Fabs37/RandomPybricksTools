@@ -1,0 +1,24 @@
+echo "--- Motors ---"
+echo ""
+cd /sys/class/tacho-motor
+for d in */ ; do
+    echo $d;
+    dname=`cat ${d}driver_name`
+    echo "  Driver name: $dname"
+    addr=`cat ${d}address`
+    echo "  Address:     $addr"
+done
+
+echo ""
+echo "--- Sensors ---"
+echo ""
+cd /sys/class/lego-sensor
+for d in */ ; do
+    echo $d;
+    dname=`cat ${d}driver_name`
+    echo "  Driver name: $dname"
+    addr=`cat ${d}address`
+    echo "  Address:     $addr"
+    mode=`cat ${d}mode`
+    echo "  Mode:        $mode"
+done
