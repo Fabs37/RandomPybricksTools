@@ -390,7 +390,11 @@ while True:
                 elif len(portDevList[i+4].getValues()) > 1:
                     b.screen.draw_text(14+44*i, 110, "[...]")
                 else:
-                    txt = str(portDevList[i+4].values[0])
+                    if portDevList[i+4].mode == "COL-REFLECT" and settings['calibration.ev3col.reflect.enabled']:
+                        vals = allCaliVals[portDevList[selectedDevNr].portLetter]["reflect"]
+                        txt = str(int(vals[0] * portDevList[i+4].values[0] + vals[1]))
+                    else:
+                        txt = str(portDevList[i+4].values[0])
                     b.screen.draw_text(44*i + (44-f12.text_width(txt))/2, 110, txt)
 
         b.screen.set_font(f18)
